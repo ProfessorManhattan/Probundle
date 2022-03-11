@@ -116,13 +116,16 @@
     "node": ">=14.18.0"
   },
   "publishConfig": {
-    "@megabyte:registry": "https://gitlab.com/api/v4/projects//packages/npm/",
+    "@megabyte:registry": "https://gitlab.com/api/v4/projects/34423466/packages/npm/",
     "access": "public"
   },
   "blueprint": {
     "binName": "probundle",
     "customPackageName": "probundle",
     "description": "A tool that handles compressing, bundling, and unpacking production node_modules dependencies that you want to store in source control",
+    "github_id": "R_kgDOG_M3iQ",
+    "gitlab_group_id": "14035146",
+    "gitlab_project_id": "34423466",
     "group": "npm",
     "name": "Probundle",
     "overview": "**Probundle** is a project that brings [pac](https://www.npmjs.com/package/pac) back to life (and support modern versions of Node.js. To achieve the fastest deployments possible, the production `node_modules/` (not devDependencies or any of that optional stuff) can be compressed by running `probundle pack` and stored in source control. Then, when deployment time comes all you have to do is uncompress or run `probundle unpack`. This works well when you also run [node-prune](https://github.com/tj/node-prune) on your `node_modules/` folder, before compressing your production dependencies. We even take it a step further in some cases and create global shared configurations for libraries like [ESLint](https://github.com/ProfessorManhattan/eslint-config-strict-mode) and [Prettier](https://github.com/ProfessorManhattan/prettier-config-sexy-mode) that dynamically load their plugins into `node_modules/` by downloading compressed plugins from source control without having to run `npm install`. We fuss about the performance of our `node_modules/` installation time because it is often a bottleneck.",
@@ -133,10 +136,7 @@
     "slug": "probundle",
     "snapPackage": "probundle",
     "subgroup": "cli",
-    "title": "Bundle Your Production Dependencies with Probundle",
-    "github_id": "R_kgDOG_M3iQ",
-    "gitlab_project_id": "34423466",
-    "gitlab_group_id": "14035146"
+    "title": "Bundle Your Production Dependencies with Probundle"
   },
   "changelog": {
     "displayTypes": [
