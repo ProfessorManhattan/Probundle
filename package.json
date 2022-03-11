@@ -120,23 +120,20 @@
     "access": "public"
   },
   "blueprint": {
-    "binName": "produndle",
-    "customPackageName": "produndle",
+    "binName": "probundle",
+    "customPackageName": "probundle",
     "description": "A tool that handles compressing, bundling, and unpacking production node_modules dependencies that you want to store in source control",
-    "github_id": "R_kgDOG_K9AQ",
-    "gitlab_group_id": "14035146",
-    "gitlab_project_id": "34421346",
     "group": "npm",
-    "name": "Produndle",
-    "overview": "**Produndle** is a project that brings [pac](https://www.npmjs.com/package/pac) back to life (and support modern versions of Node.js. To achieve the fastest deployments possible, the production `node_modules/` (not devDependencies or any of that optional stuff) can be compressed by running `produndle pack` and stored in source control. Then, when deployment time comes all you have to do is uncompress or run `produndle unpack`. This works well when you also run [node-prune](https://github.com/tj/node-prune) on your `node_modules/` folder, before compressing your production dependencies. We even take it a step further in some cases and create global shared configurations for libraries like [ESLint](https://github.com/ProfessorManhattan/eslint-config-strict-mode) and [Prettier](https://github.com/ProfessorManhattan/prettier-config-sexy-mode) that dynamically load their plugins into `node_modules/` by downloading compressed plugins from source control without having to run `npm install`. We fuss about the performance of our `node_modules/` installation time because it is often a bottleneck.",
+    "name": "Probundle",
+    "overview": "**Probundle** is a project that brings [pac](https://www.npmjs.com/package/pac) back to life (and support modern versions of Node.js. To achieve the fastest deployments possible, the production `node_modules/` (not devDependencies or any of that optional stuff) can be compressed by running `probundle pack` and stored in source control. Then, when deployment time comes all you have to do is uncompress or run `probundle unpack`. This works well when you also run [node-prune](https://github.com/tj/node-prune) on your `node_modules/` folder, before compressing your production dependencies. We even take it a step further in some cases and create global shared configurations for libraries like [ESLint](https://github.com/ProfessorManhattan/eslint-config-strict-mode) and [Prettier](https://github.com/ProfessorManhattan/prettier-config-sexy-mode) that dynamically load their plugins into `node_modules/` by downloading compressed plugins from source control without having to run `npm install`. We fuss about the performance of our `node_modules/` installation time because it is often a bottleneck.",
     "repository": {
-      "github": "https://github.com/ProfessorManhattan/Produndle",
-      "gitlab": "https://gitlab.com/megabyte-labs/npm/cli/produndle"
+      "github": "https://github.com/ProfessorManhattan/Probundle",
+      "gitlab": "https://gitlab.com/megabyte-labs/npm/cli/probundle"
     },
-    "slug": "produndle",
-    "snapPackage": "produndle",
+    "slug": "probundle",
+    "snapPackage": "probundle",
     "subgroup": "cli",
-    "title": "Bundle Your Production Dependencies with Produndle"
+    "title": "Bundle Your Production Dependencies with Probundle"
   },
   "changelog": {
     "displayTypes": [

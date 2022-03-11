@@ -3,7 +3,7 @@
 After ensuring your `node_modules/` folder only contains the files you want in your compressed, production packages, simply run:
 
 ```shell
-produndle pack
+probundle pack
 ```
 
 This will create compressed `.tgz` files for each of the packages in the `node_modules/` folder. You can then save these in source control or wherever you like. The compressed files will be stored in the `.modules/` folder.
@@ -11,7 +11,7 @@ This will create compressed `.tgz` files for each of the packages in the `node_m
 When you are ready to deploy your compressed packages, perhaps after freshly cloning your repository, just run:
 
 ```shell
-produndle unpack
+probundle unpack
 ```
 
 ## Optimization
@@ -24,7 +24,7 @@ Start off by clearing your `node_modules/` folder:
 rm -rf node_modules
 ```
 
-Then, install only the *dependencies* by running:
+Then, install only the _dependencies_ by running:
 
 ```shell
 npm install --only=prod
@@ -45,11 +45,11 @@ The `node_modules/` folder can get pretty big, pretty quickly, so you might want
 You can get even fancier with it by doing things like dynamically loading your `node_modules/`. Sometimes you might have a library that only needs a dependency sometimes. In that case, you can download the compressed `.tgz` wherever it is stored and load it on-demand. You can load a single module by running a command similar to this one:
 
 ```shell
-produndle unpack eslint
+probundle unpack eslint
 ```
 
 For the above snippet to work, you would have to have the compressed `eslint.tgz` file stored in `.modules/eslint.tgz`.
 
 ## Performance
 
-For even more performance, consider using [`pnpm`](https://pnpm.io/). Although we use `pnpm` normally, we actually use `npm` for building the `node_modules/` folder that **Produndle** compresses. You can get a better idea of how we implement Produndle by checking out this [Taskfile.yml](https://github.com/ProfessorManhattan/Produndle/tree/master/.config/taskfiles/npm/Taskfile-bundle.yml) which is powered by our custom task-runner called [Bodega](https://github.com/ProfessorManhattan/Bodega).
+For even more performance, consider using [`pnpm`](https://pnpm.io/). Although we use `pnpm` normally, we actually use `npm` for building the `node_modules/` folder that **Probundle** compresses. You can get a better idea of how we implement Probundle by checking out this [Taskfile.yml](https://github.com/ProfessorManhattan/Probundle/tree/master/.config/taskfiles/npm/Taskfile-bundle.yml) which is powered by our custom task-runner called [Bodega](https://github.com/ProfessorManhattan/Bodega).
