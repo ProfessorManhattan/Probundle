@@ -1,52 +1,54 @@
 {
+  "private": false,
+  "name": "probundle",
+  "version": "3.10.3",
+  "description": "A tool that handles compressing, bundling, and unpacking production node_modules dependencies that you want to store in source control",
+  "license": "MIT",
   "author": "Brian Zalewski <brian@megabyte.space> (https://megabyte.space)",
-  "bin": {
-    "common-shared": "bin/cli"
-  },
-  "blueprint": {
-    "binName": "probundle",
-    "customPackageName": "probundle",
-    "description": "A tool that handles compressing, bundling, and unpacking production node_modules dependencies that you want to store in source control",
-    "github_id": "R_kgDOG_M3iQ",
-    "gitlab_group_id": "14035146",
-    "gitlab_project_id": "34423466",
-    "group": "npm",
-    "name": "Probundle",
-    "overview": "**Probundle** is a project that brings [pac](https://www.npmjs.com/package/pac) back to life (and support modern versions of Node.js. To achieve the fastest deployments possible, the production `node_modules/` (not devDependencies or any of that optional stuff) can be compressed by running `probundle pack` and stored in source control. Then, when deployment time comes all you have to do is uncompress or run `probundle unpack`. This works well when you also run [node-prune](https://github.com/tj/node-prune) on your `node_modules/` folder, before compressing your production dependencies. We even take it a step further in some cases and create global shared configurations for libraries like [ESLint](https://github.com/ProfessorManhattan/eslint-config-strict-mode) and [Prettier](https://github.com/ProfessorManhattan/prettier-config-sexy-mode) that dynamically load their plugins into `node_modules/` by downloading compressed plugins from source control without having to run `npm install`. We fuss about the performance of our `node_modules/` installation time because it is often a bottleneck.",
-    "repository": {
-      "github": "https://github.com/ProfessorManhattan/Probundle",
-      "gitlab": "https://gitlab.com/megabyte-labs/npm/cli/probundle"
-    },
-    "slug": "probundle",
-    "snapPackage": "probundle",
-    "subgroup": "cli",
-    "title": "Bundle Your Production Dependencies with Probundle"
+  "homepage": "https://megabyte.space",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProfessorManhattan/Probundle.git"
   },
   "bugs": {
     "email": "help@megabyte.space",
     "url": "https://gitlab.com/megabyte-labs/npm/cli/probundle/-/issues"
   },
-  "changelog": {
-    "displayTypes": [
-      "feat",
-      "fix",
-      "perf",
-      "refactor",
-      "revert"
-    ],
-    "showAuthor": true
+  "type": "module",
+  "main": "dist/main.js",
+  "man": "man",
+  "bin": {
+    "common-shared": "bin/cli"
   },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ],
-    "helpUrl": "https://megabyte.space/docs/contributing/commits"
+  "files": [
+    "bin/",
+    "dist/"
+  ],
+  "scripts": {
+    "build": "bash start.sh && nest build",
+    "bump": "npm run build && SKIP_NPM_PREPUBLISHONLY=true npm version patch --no-commit-hooks --no-git-tag-version --force && SKIP_NPM_PREPUBLISHONLY=true npm publish",
+    "commit": "bash start.sh && task commit",
+    "fix": "bash start.sh && task fix",
+    "help": "bash start.sh && task --menu",
+    "postinstall": "go-npm install || true",
+    "lint": "bash start.sh && task list",
+    "preload": "bash start.sh && task preload",
+    "prepare": "bash start.sh && (test -f Taskfile.yml && task npm:prepare) || true",
+    "prepublishOnly": "test -z SKIP_NPM_PREPUBLISHONLY && bash start.sh && task npm:bundle:create || true",
+    "release": "bash start.sh && task publish:semantic-release",
+    "repair": "bash <(curl -sS https://install.doctor/repair)",
+    "start": "test -z SKIP_NPM_START && bash start.sh || true",
+    "test": "bash start.sh && [[ -z $CI ]] && task npm:test || task npm:test:ci",
+    "preuninstall": "go-npm uninstall || true",
+    "unpack": "bash start.sh && task npm:bundle:unpack",
+    "update": "bash start.sh && task update"
   },
   "config": {
     "commitizen": {
       "path": "node_modules/git-cz-emoji"
     }
   },
+  "typings": "dist/main.d.ts",
   "dependencies": {
     "@nestjs/common": "8.1.2",
     "@nestjs/config": "^1.0.3",
@@ -66,7 +68,7 @@
     "tslib": "latest",
     "update-notifier": "^5.1.0"
   },
-  "description": "A tool that handles compressing, bundling, and unpacking production node_modules dependencies that you want to store in source control",
+  "optionalDependencies": {},
   "devDependencies": {
     "@commitlint/config-conventional": "latest",
     "@nestjs/cli": "^8.0.0",
@@ -90,54 +92,6 @@
     "source-map-support": "^0.5.20",
     "typescript": "latest"
   },
-  "engines": {
-    "node": ">=14.18.0"
-  },
-  "eslintConfig": {
-    "extends": "eslint-config-strict-mode",
-    "ignorePatterns": [
-      "testdata/**/*"
-    ]
-  },
-  "files": [
-    "bin/",
-    "dist/",
-    "CHANGELOG.md",
-    "LICENSE",
-    "README.md"
-  ],
-  "funding": [
-    {
-      "type": "opencollective",
-      "url": "https://opencollective.com/megabytelabs"
-    },
-    {
-      "type": "patreon",
-      "url": "https://www.patreon.com/ProfessorManhattan"
-    }
-  ],
-  "goBinary": {
-    "name": "task",
-    "path": "./bin",
-    "url": "https://github.com/ProfessorManhattan/Bodega/releases/download/v3.10.0/Bodega-3.10.0-{{platform}}-{{arch}}.tar.gz"
-  },
-  "homepage": "https://megabyte.space",
-  "jest": {
-    "preset": "jest-preset-ts",
-    "reporters": [
-      "default",
-      [
-        "jest-html-reporters",
-        {
-          "filename": "index.html",
-          "logoImgPath": "./.config/assets/logo-jest-report.png",
-          "openReport": true,
-          "pageTitle": "Code Coverage Report",
-          "publicPath": "./coverage"
-        }
-      ]
-    ]
-  },
   "keywords": [
     "automation",
     "bin",
@@ -156,7 +110,85 @@
     "terminal",
     "washingtondc"
   ],
-  "license": "MIT",
+  "engines": {
+    "node": ">=14.18.0"
+  },
+  "publishConfig": {
+    "@megabyte:registry": "https://gitlab.com/api/v4/projects/34423466/packages/npm/",
+    "access": "public"
+  },
+  "blueprint": {
+    "binName": "probundle",
+    "customPackageName": "probundle",
+    "description": "A tool that handles compressing, bundling, and unpacking production node_modules dependencies that you want to store in source control",
+    "github_id": "R_kgDOG_M3iQ",
+    "gitlab_group_id": "14035146",
+    "gitlab_project_id": "34423466",
+    "group": "npm",
+    "name": "Probundle",
+    "overview": "**Probundle** is a project that brings [pac](https://www.npmjs.com/package/pac) back to life (and support modern versions of Node.js. To achieve the fastest deployments possible, the production `node_modules/` (not devDependencies or any of that optional stuff) can be compressed by running `probundle pack` and stored in source control. Then, when deployment time comes all you have to do is uncompress or run `probundle unpack`. This works well when you also run [node-prune](https://github.com/tj/node-prune) on your `node_modules/` folder, before compressing your production dependencies. We even take it a step further in some cases and create global shared configurations for libraries like [ESLint](https://github.com/ProfessorManhattan/eslint-config-strict-mode) and [Prettier](https://github.com/ProfessorManhattan/prettier-config-sexy-mode) that dynamically load their plugins into `node_modules/` by downloading compressed plugins from source control without having to run `npm install`. We fuss about the performance of our `node_modules/` installation time because it is often a bottleneck.",
+    "repository": {
+      "github": "https://github.com/ProfessorManhattan/Probundle",
+      "gitlab": "https://gitlab.com/megabyte-labs/npm/cli/probundle"
+    },
+    "slug": "probundle",
+    "snapPackage": "probundle",
+    "subgroup": "cli",
+    "title": "Bundle Your Production Dependencies with Probundle"
+  },
+  "changelog": {
+    "displayTypes": [
+      "feat",
+      "fix",
+      "perf",
+      "refactor",
+      "revert"
+    ],
+    "showAuthor": true
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
+    "helpUrl": "https://megabyte.space/docs/contributing/commits"
+  },
+  "eslintConfig": {
+    "extends": "eslint-config-strict-mode",
+    "ignorePatterns": [
+      "testdata/**/*"
+    ]
+  },
+  "funding": [
+    {
+      "type": "opencollective",
+      "url": "https://opencollective.com/megabytelabs"
+    },
+    {
+      "type": "patreon",
+      "url": "https://www.patreon.com/ProfessorManhattan"
+    }
+  ],
+  "goBinary": {
+    "name": "task",
+    "path": "./bin",
+    "url": "https://github.com/ProfessorManhattan/Bodega/releases/download/v3.10.0/Bodega-3.10.0-{{platform}}-{{arch}}.tar.gz"
+  },
+  "jest": {
+    "preset": "jest-preset-ts",
+    "reporters": [
+      "default",
+      [
+        "jest-html-reporters",
+        {
+          "filename": "index.html",
+          "logoImgPath": "./.config/assets/logo-jest-report.png",
+          "openReport": true,
+          "pageTitle": "Code Coverage Report",
+          "publicPath": "./coverage"
+        }
+      ]
+    ]
+  },
   "lint-staged": {
     "(Brewfile|composer.lock|Gemfile|Gopkg.lock|Pipfile.lock)": [
       "task fix:prettier --"
@@ -224,9 +256,6 @@
       "task image:compress --"
     ]
   },
-  "main": "dist/main.js",
-  "man": "man",
-  "name": "probundle",
   "nodemonConfig": {
     "exec": "tsc -p . && node --inspect-brk dist/main",
     "ext": "js,jsx,json,ts,tsx,yml",
@@ -256,7 +285,6 @@
       "update": "Update and refresh the repository with upstream changes and templated parts"
     }
   },
-  "optionalDependencies": {},
   "pkg": {
     "compress": "Brotli",
     "outputPath": "build"
@@ -280,11 +308,6 @@
     }
   },
   "prettier": "prettier-config-sexy-mode",
-  "private": false,
-  "publishConfig": {
-    "@megabyte:registry": "https://gitlab.com/api/v4/projects/34423466/packages/npm/",
-    "access": "public"
-  },
   "release": {
     "branches": [
       "main",
@@ -300,31 +323,5 @@
       }
     ],
     "extends": "semantic-release-config"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ProfessorManhattan/Probundle.git"
-  },
-  "scripts": {
-    "build": "bash start.sh && nest build",
-    "bump": "npm run build && SKIP_NPM_PREPUBLISHONLY=true npm version patch --no-commit-hooks --no-git-tag-version --force && SKIP_NPM_PREPUBLISHONLY=true npm publish",
-    "commit": "bash start.sh && task commit",
-    "fix": "bash start.sh && task fix",
-    "help": "bash start.sh && task --menu",
-    "lint": "bash start.sh && task list",
-    "postinstall": "go-npm install || true",
-    "preload": "bash start.sh && task preload",
-    "prepare": "bash start.sh && (test -f Taskfile.yml && task npm:prepare) || true",
-    "prepublishOnly": "test -z SKIP_NPM_PREPUBLISHONLY && bash start.sh && task npm:bundle:create || true",
-    "preuninstall": "go-npm uninstall || true",
-    "release": "bash start.sh && task publish:semantic-release",
-    "repair": "bash <(curl -sS https://install.doctor/repair)",
-    "start": "test -z SKIP_NPM_START && bash start.sh || true",
-    "test": "bash start.sh && [[ -z $CI ]] && task npm:test || task npm:test:ci",
-    "unpack": "bash start.sh && task npm:bundle:unpack",
-    "update": "bash start.sh && task update"
-  },
-  "type": "module",
-  "typings": "dist/main.d.ts",
-  "version": "3.10.3"
+  }
 }

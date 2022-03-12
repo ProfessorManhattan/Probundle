@@ -42,7 +42,7 @@ specifiers:
   source-map-support: ^0.5.20
   tar: ^6.1.11
   tslib: latest
-  typescript: ^4.5.5
+  typescript: latest
   update-notifier: ^5.1.0
 
 dependencies:
