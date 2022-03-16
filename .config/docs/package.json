@@ -15,22 +15,11 @@
     "url": "https://gitlab.com/megabyte-labs/npm/cli/probundle/-/issues"
   },
   "type": "module",
-  "main": "dist/main.js",
-  "man": "man",
-  "bin": {
-    "common-shared": "bin/cli"
-  },
-  "files": [
-    "bin/",
-    "dist/"
-  ],
   "scripts": {
     "build": "bash start.sh && nest build",
-    "bump": "npm run build && npm version patch --no-scripts --no-commit-hooks --no-git-tag-version --force && SKIP_PREPUB=true npm publish",
     "commit": "bash start.sh && task commit",
     "fix": "bash start.sh && task fix",
     "help": "bash start.sh && task --menu",
-    "postinstall": "go-npm install || true",
     "lint": "bash start.sh && task lint",
     "preload": "bash start.sh && task preload",
     "prepare": "bash start.sh && (test -f Taskfile.yml && task npm:prepare) || true",
@@ -39,7 +28,6 @@
     "repair": "bash <(curl -sS https://install.doctor/repair)",
     "start": "test -z $SKIP_NPM_START && bash start.sh || true",
     "test": "bash start.sh && [[ -z $CI ]] && task npm:test || task npm:test:ci",
-    "preuninstall": "go-npm uninstall || true",
     "unpack": "bash start.sh && task npm:bundle:unpack",
     "update": "bash start.sh && task update"
   },
@@ -48,66 +36,21 @@
       "path": "node_modules/git-cz-emoji"
     }
   },
-  "typings": "dist/main.d.ts",
-  "dependencies": {
-    "@nestjs/common": "8.1.2",
-    "@nestjs/config": "^1.0.3",
-    "@nestjs/core": "8.1.2",
-    "chalk": "^4.1.2",
-    "class-transformer": "^0.4.0",
-    "class-validator": "^0.13.1",
-    "cosmiconfig": "^7.0.1",
-    "go-npm": "^0.1.9",
-    "jest-html-reporters": "^3.0.6",
-    "jest-junit": "^13.0.0",
-    "nest-commander": "^2.3.3",
-    "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.2.0",
-    "shelljs": "^0.8.4",
-    "tar": "^6.1.11",
-    "tslib": "latest",
-    "update-notifier": "^5.1.0"
-  },
+  "dependencies": {},
   "optionalDependencies": {},
   "devDependencies": {
     "@commitlint/config-conventional": "latest",
-    "@nestjs/cli": "^8.0.0",
-    "@nestjs/schematics": "^8.0.0",
-    "@nestjs/testing": "^8.0.0",
-    "@types/node": "^16.11.6",
-    "@types/shelljs": "^0.8.9",
-    "@types/tar": "^6.1.1",
-    "@types/update-notifier": "^5.1.0",
-    "esbuild": "^0.12.29",
-    "esbuild-node-externals": "^1.3.0",
     "eslint-config-strict-mode": "latest",
     "git-cz-emoji": "latest",
     "handlebars-helpers": "latest",
-    "jest-preset-ts": "latest",
-    "nest-commander-schematics": "^2.0.1",
-    "nest-commander-testing": "^2.0.1",
     "prettier-config-sexy-mode": "latest",
-    "remark-man": "^8.0.0",
     "semantic-release-config": "latest",
-    "source-map-support": "^0.5.20",
     "typescript": "^4.5.5"
   },
   "keywords": [
-    "automation",
-    "bin",
-    "cli",
-    "commander",
-    "cosmicconfig",
-    "go",
-    "go-lang",
-    "golang",
-    "inquirer",
-    "manpage",
     "mblabs",
     "megabytelabs",
-    "nestjs",
     "professormanhattan",
-    "terminal",
     "washingtondc"
   ],
   "engines": {
@@ -118,23 +61,10 @@
     "access": "public"
   },
   "blueprint": {
-    "binName": "probundle",
-    "customPackageName": "probundle",
-    "description": "A tool that handles compressing, bundling, and unpacking production node_modules dependencies that you want to store in source control",
-    "github_id": "R_kgDOG_M3iQ",
-    "gitlab_group_id": "14035146",
-    "gitlab_project_id": "34423466",
-    "group": "npm",
-    "name": "Probundle",
-    "overview": "**Probundle** is a project that brings [pac](https://www.npmjs.com/package/pac) back to life (and support modern versions of Node.js. To achieve the fastest deployments possible, the production `node_modules/` (not devDependencies or any of that optional stuff) can be compressed by running `probundle pack` and stored in source control. Then, when deployment time comes all you have to do is uncompress or run `probundle unpack`. This works well when you also run [node-prune](https://github.com/tj/node-prune) on your `node_modules/` folder, before compressing your production dependencies. We even take it a step further in some cases and create global shared configurations for libraries like [ESLint](https://github.com/ProfessorManhattan/eslint-config-strict-mode) and [Prettier](https://github.com/ProfessorManhattan/prettier-config-sexy-mode) that dynamically load their plugins into `node_modules/` by downloading compressed plugins from source control without having to run `npm install`. We fuss about the performance of our `node_modules/` installation time because it is often a bottleneck.",
     "repository": {
       "github": "https://github.com/ProfessorManhattan/Probundle",
       "gitlab": "https://gitlab.com/megabyte-labs/npm/cli/probundle"
-    },
-    "slug": "probundle",
-    "snapPackage": "probundle",
-    "subgroup": "cli",
-    "title": "Bundle Your Production Dependencies with Probundle"
+    }
   },
   "changelog": {
     "displayTypes": [
@@ -147,14 +77,13 @@
     "showAuthor": true
   },
   "commitlint": {
-    "extends": [],
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
     "helpUrl": "https://megabyte.space/docs/contributing/commits"
   },
   "eslintConfig": {
-    "extends": "eslint-config-strict-mode",
-    "ignorePatterns": [
-      "testdata/**/*"
-    ]
+    "extends": "eslint-config-strict-mode"
   },
   "funding": [
     {
@@ -166,42 +95,76 @@
       "url": "https://www.patreon.com/ProfessorManhattan"
     }
   ],
-  "goBinary": {
-    "name": "task",
-    "path": "./bin",
-    "url": "https://github.com/ProfessorManhattan/Bodega/releases/download/v3.10.0/Bodega-3.10.0-{{platform}}-{{arch}}.tar.gz"
-  },
-  "jest": {
-    "preset": "jest-preset-ts",
-    "reporters": [
-      "default",
-      [
-        "jest-html-reporters",
-        {
-          "filename": "index.html",
-          "logoImgPath": "./.config/assets/logo-jest-report.png",
-          "openReport": true,
-          "pageTitle": "Code Coverage Report",
-          "publicPath": "./coverage"
-        }
-      ]
-    ]
-  },
-  "nodemonConfig": {
-    "exec": "tsc -p . && node --inspect-brk dist/main",
-    "ext": "js,jsx,json,ts,tsx,yml",
-    "ignore": [
-      "src/**/*.spec.ts"
+  "lint-staged": {
+    "(Brewfile|composer.lock|Gemfile|Gopkg.lock|Pipfile.lock)": [
+      "task fix:prettier --"
     ],
-    "watch": [
-      ".env",
-      "src"
+    "**/!(logo).(jpg|png)": [
+      "task image:compress --"
+    ],
+    "**/*": [
+      "task lint:any --"
+    ],
+    "**/*!(template).(json|webapp|webmanifest)": [
+      "task fix:json --"
+    ],
+    "**/*.(bash|cfg|cgi|command|css|env|env.*|handlebars|hbs|html|less|fcgi|java|md|mdx|mjml|php|phtml|properties|reg|scss|tmpl|tmux|tool|tpl|zsh)": [
+      "task fix:prettier --"
+    ],
+    "**/*.(cjs|js|jsx|mjs|ts|tsx)": [
+      "task fix:js --",
+      "task lint:js --"
+    ],
+    "**/*.(yml|yaml)": [
+      "task fix:yaml --",
+      "task lint:yaml --"
+    ],
+    "**/*.go": [
+      "task fix:go --",
+      "task lint:go --"
+    ],
+    "**/*.md": [
+      "task fix:markdown --",
+      "task lint:spelling:markdown --"
+    ],
+    "**/*.php": [
+      "task fix:php --",
+      "task lint:php --"
+    ],
+    "**/*.py": [
+      "task fix:python --",
+      "task lint:python --"
+    ],
+    "**/*.sh": [
+      "task fix:prettier --",
+      "task fix:shell --",
+      "task lint:shell --"
+    ],
+    "**/*.toml": [
+      "task fix:toml --",
+      "task fix:prettier --",
+      "task lint:toml --"
+    ],
+    "**/*.xml": [
+      "task fix:xml --",
+      "task lint:xml --"
+    ],
+    "Dockerfile": [
+      "task fix:prettier --",
+      "task lint:docker --"
+    ],
+    "Vagrantfile": [
+      "task fix:prettier --",
+      "task lint:vagrant"
+    ],
+    "logo.png": [
+      "task image:resize -- 200 200",
+      "task image:compress --"
     ]
   },
   "ntl": {
     "descriptions": {
       "build": "Builds the project using the build command specified under scripts in package.json",
-      "bump": "Used to quickly build, increase the package.json version, and publish the package",
       "commit": "If unsure, use this task to commit your code so that it adheres to our commit rules",
       "fix": "Run auto-fixing with all available auto-fixers",
       "help": "Display the Bodega Taskfile.yml interactive help menu",
@@ -216,14 +179,9 @@
       "update": "Update and refresh the repository with upstream changes and templated parts"
     }
   },
-  "pkg": {
-    "compress": "Brotli",
-    "outputPath": "build"
-  },
   "pnpm": {
     "allowedVersions": {
       "@typescript-eslint/eslint-plugin": "5",
-      "eslint": "8",
       "typescript": "4"
     },
     "neverBuiltDependencies": [
