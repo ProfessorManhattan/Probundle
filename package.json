@@ -65,12 +65,11 @@
     "rxjs": "^7.2.0",
     "shelljs": "^0.8.4",
     "tar": "^6.1.11",
-    "tslib": "latest",
-    "update-notifier": "^5.1.0"
+    "update-notifier": "^5.1.0",
+    "tslib": "latest"
   },
   "optionalDependencies": {},
   "devDependencies": {
-    "@commitlint/config-conventional": "latest",
     "@nestjs/cli": "^8.0.0",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",
@@ -82,7 +81,6 @@
     "esbuild-node-externals": "^1.3.0",
     "eslint-config-strict-mode": "latest",
     "git-cz-emoji": "latest",
-    "handlebars-helpers": "latest",
     "jest-preset-ts": "latest",
     "nest-commander-schematics": "^2.0.1",
     "nest-commander-testing": "^2.0.1",
@@ -90,7 +88,9 @@
     "remark-man": "^8.0.0",
     "semantic-release-config": "latest",
     "source-map-support": "^0.5.20",
-    "typescript": "^4.5.5"
+    "typescript": "^4.5.5",
+    "@commitlint/config-conventional": "latest",
+    "handlebars-helpers": "latest"
   },
   "keywords": [
     "automation",
@@ -128,7 +128,7 @@
     "name": "Probundle",
     "overview": "**Probundle** is a project that brings [pac](https://www.npmjs.com/package/pac) back to life (and support modern versions of Node.js. To achieve the fastest deployments possible, the production `node_modules/` (not devDependencies or any of that optional stuff) can be compressed by running `probundle pack` and stored in source control. Then, when deployment time comes all you have to do is uncompress or run `probundle unpack`. This works well when you also run [node-prune](https://github.com/tj/node-prune) on your `node_modules/` folder, before compressing your production dependencies. We even take it a step further in some cases and create global shared configurations for libraries like [ESLint](https://github.com/ProfessorManhattan/eslint-config-strict-mode) and [Prettier](https://github.com/ProfessorManhattan/prettier-config-sexy-mode) that dynamically load their plugins into `node_modules/` by downloading compressed plugins from source control without having to run `npm install`. We fuss about the performance of our `node_modules/` installation time because it is often a bottleneck.",
     "repository": {
-      "github": "https://github.com/ProfessorManhattan/Probundle",
+      "github": "https://github.com/megabyte-labs/Probundle",
       "gitlab": "https://gitlab.com/megabyte-labs/npm/cli/probundle"
     },
     "slug": "probundle",
@@ -147,9 +147,7 @@
     "showAuthor": true
   },
   "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ],
+    "extends": [],
     "helpUrl": "https://megabyte.space/docs/contributing/commits"
   },
   "eslintConfig": {
