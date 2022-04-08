@@ -1,5 +1,5 @@
 FROM scratch
 
-ENTRYPOINT ["/task"]
+ENTRYPOINT ["/probundle"]
 
-COPY task /
+COPY probundle /

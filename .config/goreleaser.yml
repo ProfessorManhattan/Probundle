@@ -2,29 +2,29 @@
 announce:
   linkedin:
     enabled: false
-    message_template: 'Bodega {{ .Tag }} is out! Check it out at {{ .ReleaseURL }}.'
+    message_template: 'Probundle {{ .Tag }} is out! Check it out at {{ .ReleaseURL }}.'
   reddit:
     application_id: O3UxD7HlPpcN88gpEkPIXQ
     enabled: false
-    title_template: 'Bodega {{ .Tag }} was just released!'
-    url_template: 'https://github.com/ProfessorManhattan/Bodega/releases/tag/{{ .Tag }}'
+    title_template: 'Probundle {{ .Tag }} was just released!'
+    url_template: 'https://github.com/megabyte-labs/Probundle/releases/tag/{{ .Tag }}'
     username: tsgangster
   skip: '{{gt .Patch 0}}'
   slack:
-    channel: '#go-lang'
+    channel: '#misc'
     enabled: true
     icon_url: 'https://gitlab.com/megabyte-labs/misc/assets/-/raw/master/logo/megabytelabs-color-icon-350x350.png'
-    message_template: '**[Bodega](https://github.com/ProfessorManhattan/Bodega)** {{.Tag}} is out! Check it out at {{.ReleaseURL}}.'
+    message_template: '**[Probundle](https://github.com/megabyte-labs/Probundle)** {{.Tag}} is out! Check it out at {{.ReleaseURL}}.'
     username: Megabyte Labs Release Notification Bot
   teams:
     color: '#1DA1F2'
     enabled: false
     icon_url: 'https://gitlab.com/megabyte-labs/misc/assets/-/raw/master/logo/megabytelabs-color-icon-350x350.png'
-    message_template: 'Bodega {{ .Tag }} is out! Check it out at {{ .ReleaseURL }}.'
-    title_template: 'Bodega {{ .Tag }} has been released!'
+    message_template: 'Probundle {{ .Tag }} is out! Check it out at {{ .ReleaseURL }}.'
+    title_template: 'Probundle {{ .Tag }} has been released!'
   twitter:
     enabled: false
-    message_template: 'Bodega {{ .Tag }} is out with new features! Check it out at {{ .ReleaseURL }}.'
+    message_template: 'Probundle {{ .Tag }} is out with new features! Check it out at {{ .ReleaseURL }}.'
 
 archives:
   - files:
@@ -34,51 +34,30 @@ archives:
     format_overrides:
       - format: zip
         goos: windows
-    replacements:
-      darwin: macos
-
-before:
-  hooks:
-    - go mod tidy
 
 brews:
-  - description: 'A gorgeous, feature-packed drop-in replacement for the go-task project'
+  - description: 'A tool that handles compressing, bundling, and unpacking production node_modules dependencies that you want to store in source control'
     folder: Formula
     homepage: 'https://megabyte.space'
     install: |-
-      bin.install "task"
-      bash_completion.install "completion/bash/task.bash" => "task"
-      zsh_completion.install "completion/zsh/_task" => "_task"
-      fish_completion.install "completion/fish/task.fish"
+      bin.install "probundle"
+      bash_completion.install "completion/bash/probundle.bash" => "probundle"
+      zsh_completion.install "completion/zsh/_probundle" => "_probundle"
+      fish_completion.install "completion/fish/probundle.fish"
     license: MIT
-    name: task
+    name: probundle
     tap:
       name: homebrew-tap
       owner: installdoc
     test: ''
 
-build:
-  binary: task
-  env:
-    - CGO_ENABLED=0
+builds:
+  binary: probundle
   goarch:
-    - 386
     - amd64
-    - arm
-    - arm64
-  goarm:
-    - 6
-  goos:
-    - windows
-    - darwin
-    - linux
-  ignore:
-    - goarch: 386
-      goos: darwin
-  ldflags:
-    # yamllint disable-line rule:line-length
-    - '-s -w -X "main.version={{.Version}}" -X "main.commit={{.Commit}}" -X "main.date={{.Date}}" -X "main.builtBy=Megabyte Labs" -X "main.goversion={{.Env.GOVERSION}}"'
-  main: cmd/task
+  hooks:
+    post: task npm:build:pkg
+  main: .config/dummy.go
 
 checksum:
   name_template: CHECKSUMS.txt
@@ -98,10 +77,10 @@ dockers:
     use: buildx
 
 gomod:
-  proxy: true
+  proxy:
 
 nfpms:
-  - description: 'A gorgeous, feature-packed drop-in replacement for the go-task project'
+  - description: 'A tool that handles compressing, bundling, and unpacking production node_modules dependencies that you want to store in source control'
     formats:
       - apk
       - deb
@@ -112,23 +91,22 @@ nfpms:
     maintainer: Megabyte Labs <help@megabyte.space>
     recommends:
       - git
-    replacements:
-      darwin: macos
     suggests:
       - docker
       - jq
       - yq
     vendor: Megabyte LLC
 
-project_name: Bodega
+project_name: Probundle
 
 release:
   disable: true
 
+# eslint-disable max-len
 snapcrafts:
-  - confinement: classic
+  - confinement: ''
     # yamllint disable-line rule:line-length
-    description: '**Bodega** is taking [go-task](https://github.com/go-task/task) to a whole new level. It adds powerful UX features and functional improvements while retaining backwards compatibility. For those of you who do not know, Task is a task runner / Make alternative written in Go. It allows you to define bash script snippets in YML files and provides some advanced features. Some of the features it includes is the ability to define dependencies, running tasks conditionally, caching values, and a built-in method of housing CLI documentation. **Bodega** takes go-task to the next level by improving the TUI experience and including features that allow you to use the project as a CLI-generator.'
+    description: '**Probundle** is a project that brings [pac](https://www.npmjs.com/package/pac) back to life (and support modern versions of Node.js. To achieve the fastest deployments possible, the production &#x60;node_modules/&#x60; (not devDependencies or any of that optional stuff) can be compressed by running &#x60;probundle pack&#x60; and stored in source control. Then, when deployment time comes all you have to do is uncompress or run &#x60;probundle unpack&#x60;. This works well when you also run [node-prune](https://github.com/tj/node-prune) on your &#x60;node_modules/&#x60; folder, before compressing your production dependencies. We even take it a step further in some cases and create global shared configurations for libraries like [ESLint](https://github.com/ProfessorManhattan/eslint-config-strict-mode) and [Prettier](https://github.com/ProfessorManhattan/prettier-config-sexy-mode) that dynamically load their plugins into &#x60;node_modules/&#x60; by downloading compressed plugins from source control without having to run &#x60;npm install&#x60;. We fuss about the performance of our &#x60;node_modules/&#x60; installation time because it is often a bottleneck.'
     extra_files:
       - destination: completion
         mode: 0755
@@ -136,9 +114,8 @@ snapcrafts:
     id: default
     license: MIT
     publish: true
-    replacements:
-      darwin: macos
-    summary: 'A gorgeous, feature-packed drop-in replacement for the go-task project'
+    summary: 'A tool that handles compressing, bundling, and unpacking production node_modules dependencies that you want to store in source control'
+# eslint-enable max-len
 
 snapshot:
   name_template: '{{.Tag}}'
