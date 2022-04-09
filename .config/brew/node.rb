@@ -1,5 +1,5 @@
 require "language/node"
-
+# @npmBrew [Probundle](https://github.com/megabyte-labs/Probundle) - A tool that handles compressing, bundling, and unpacking production node_modules dependencies that you want to store in source control
 class Probundle < Formula
   desc "A tool that handles compressing, bundling, and unpacking production node_modules dependencies that you want to store in source control"
   homepage "https://megabyte.space"
