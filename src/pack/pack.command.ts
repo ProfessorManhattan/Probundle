@@ -1,4 +1,4 @@
-import { Command, CommandRunner, Option } from 'nest-commander'
+import { CommandRunner } from 'nest-commander'
 import fs from 'node:fs'
 import path from 'node:path'
 import tar from 'tar'
