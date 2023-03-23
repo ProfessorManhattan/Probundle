@@ -36,7 +36,7 @@
     <img alt="Version: 3.10.3" src="https://img.shields.io/badge/version-3.10.3-blue.svg?cacheSeconds=2592000&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAACNJREFUCNdjIACY//+BEp9hhM3hAzYQwoBIAqEDYQrCZLwAAGlFKxU1nF9cAAAAAElFTkSuQmCC&style=flat-square" />
   </a>
   <a href="https://gitlab.com/megabyte-labs/npm/cli/probundle/-/commits/master" title="GitLab CI build status" target="_blank">
-    <img alt="Build status" src="https://img.shields.io/gitlab/pipeline-status/megabyte-labs/npm/cli/probundle?branch=master&label=build&logo=gitlab&logoColor=white&style=flat-square">
+    <img alt="Build status" src="https://img.shields.io/gitlab/pipeline-status/megabyte-labs/npm/cli/probundle?branch=master&label=build&logo=gitlab&logoColor=white&style=flat-square" />
   </a>
   <a href="https://www.npmjs.com/package/probundle" title="Dependency status reported by Depfu" target="_blank">
     <img alt="Dependency status reported by Depfu" src="https://img.shields.io/depfu/megabyte-labs/probundle?logo=codeforces&logoColor=white&style=flat-square&logo=npm" />
